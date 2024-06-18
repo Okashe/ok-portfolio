@@ -6,9 +6,13 @@ import "./globals.css";
 import Header from "@/components/Header";
 import PageTransition from "@/components/PageTransition";
 import StairTransition from "@/components/StairTransition";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
-const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], weight:["100", "200", "300", "400", "500", "600", "700", "800"],
-  variable: '--font-jetbrainsMono'
+const jetbrainsMono = JetBrains_Mono(
+  { 
+    subsets: ["latin"], 
+    weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
+    variable: '--font-jetbrainsMono'
  });
 
 export const metadata: Metadata = {
@@ -23,13 +27,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={jetbrainsMono.variable}>
-        <Header/>
-        <StairTransition/>
-        <PageTransition>
-         {children}
-        </PageTransition>
+      <body className={`${jetbrainsMono.variable} bg-white text-black dark:bg-primary dark:text-white`}>
        
+       <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+       
+       >
+          <Header/>
+          <StairTransition/>
+          <PageTransition>
+          {children}
+          </PageTransition>
+       </ThemeProvider>
         </body>
     </html>
   );
